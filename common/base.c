@@ -382,7 +382,7 @@ REALIGN_STACK void x264_param_default( x264_param_t *param )
 
     /* Encoder parameters */
     param->i_frame_reference = 3;
-    param->i_keyint_max = 250;
+    param->i_keyint_max = X264_KEYINT_MAX_AUTO;
     param->i_keyint_min = X264_KEYINT_MIN_AUTO;
     param->i_bframe = 3;
     param->i_scenecut_threshold = 40;

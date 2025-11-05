@@ -608,6 +608,9 @@ static int validate_parameters( x264_t *h, int b_open )
         }
     }
 
+    int keyint_max_auto = 0;
+    if ( h->param.i_keyint_max == X264_KEYINT_MAX_AUTO )
+        keyint_max_auto = 1;
     h->param.i_keyint_max = x264_clip3( h->param.i_keyint_max, 1, X264_KEYINT_MAX_INFINITE );
     if( h->param.i_keyint_max == 1 )
     {
@@ -1106,6 +1109,8 @@ static int validate_parameters( x264_t *h, int b_open )
         h->param.i_fps_den = 1;
     }
     float fps = (float)h->param.i_fps_num / h->param.i_fps_den;
+    if ( keyint_max_auto )
+        h->param.i_keyint_max = (int)( fps * 10 );
     if( h->param.i_keyint_min == X264_KEYINT_MIN_AUTO )
         h->param.i_keyint_min = X264_MIN( h->param.i_keyint_max / 10, (int)fps );
     h->param.i_keyint_min = x264_clip3( h->param.i_keyint_min, 1, h->param.i_keyint_max/2+1 );
